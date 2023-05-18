@@ -1,4 +1,5 @@
-import { CircularProgress, Box, Typography, Button } from '@mui/material';
+import { CircularProgress, Box, Typography, Button, Fab } from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import React, { useEffect, useRef } from 'react'
 import Square from './Square';
 
@@ -184,11 +185,12 @@ const Grid = (props) => {
                         )
                     })}
                 </Box>
-                <Button sx={{position: 'fixed', bottom: '20px', right: '20px', height: '100px', width: '200px', background: '#adadad', zIndex: 0}}  onClick={djkstraBFS}>
-                    <Typography sx={{color: 'white', fontWeight: 700}}>
-                        Run animation
-                    </Typography>
-                </Button>
+                <Fab variant="extended" sx={{position: 'fixed', bottom: '20px', right: '20px', width: {xs: '20px', sm: '20px', md: '100px'} ,background: '#adadad', zIndex: 0, display: 'flex', justifyContent: 'center', alignItems: 'center'}}  onClick={djkstraBFS}>
+                    <PlayArrowIcon sx={{color: 'white'}}></PlayArrowIcon>
+                    <Typography sx={{color: 'white', fontWeight: 600, display: {xs: 'none', sm: 'none', md: 'flex'}}}>
+                        Play
+                    </Typography> 
+                </Fab>
             </>
         )
     }

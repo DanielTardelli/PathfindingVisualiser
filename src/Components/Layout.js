@@ -65,12 +65,13 @@ const Layout = (props) => {
             <Box ref={ref2} sx={{
             zIndex: 1,
             position: 'absolute',
-            left: 0,
             top: 0,
+            left: 0,
             background: '#333333', 
             width:{xs: '60px', sm: '60px', md: '100px'}, 
             minWidth: '60px',
-            height: '100%', 
+            height: '100%',
+            maxHeight: '100%',
             transition: 'width 200ms ease-in-out, background 500ms'}}>
                 <IconButton onClick={handleMenuOpenClose} sx={{position: 'relative', top: '0', right: '0', width: '100%'}}>
                     <MenuIcon sx={{fontSize: '31px', color: "white"}}/>
@@ -85,9 +86,10 @@ const Layout = (props) => {
                 }
                 
             </Box>
-            <Box ref={ref} sx={{width: '100%', height: '100%', overflow: 'auto'}}>
-                    {React.cloneElement(props.children)}
-                </Box>
+            <Box ref={ref} sx={{height: '100%', width: '100%', overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                <Box sx={{height: '100%', width:{xs: '60px', sm: '60px', md: '100px'}}}></Box>
+                {React.cloneElement(props.children)}
+            </Box>
         </div>
     )
 }
