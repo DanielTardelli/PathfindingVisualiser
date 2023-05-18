@@ -22,39 +22,39 @@ const FullMenu = (props) => {
     
 
     return (
-        <>
+        <div style={{overflowY: 'auto', height: '100%', width: '100%'}}>
             <Box width="100%" height='380px' sx={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: '30px'}}>
-                <Typography sx={{color: 'white', fontWeight: '600'}}>
+                <Typography sx={{color: 'white', fontWeight: '600', whiteSpace: 'nowrap'}}>
                     Choose your pen:
                 </Typography>
                 <Box width="90%" height="80px" sx={{display: 'flex', alignItems: 'center', paddingLeft: '15px', marginTop: '30px'}}>
                     <Button sx={{background: '#cd7dff', borderRadius: '5px', height: '40px', width: '30px', flexShrink: 0}} onClick={() => handleColChange(1)}></Button>
-                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px'}}> STARTING POINT </Typography>
+                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px', fontSize: '15px', whiteSpace: 'nowrap'}}> STARTING POINT </Typography>
                 </Box>
                 <Box width="90%" height="80px" sx={{display: 'flex', alignItems: 'center', paddingLeft: '15px', marginTop: '30px'}}>
                     <Button sx={{background: '#ff5454', borderRadius: '5px', height: '40px', width: '30px', flexShrink: 0}} onClick={() => handleColChange(-1)}></Button>
-                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px'}}> WALLS </Typography>
+                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px', fontSize: '15px', whiteSpace: 'nowrap'}}> WALLS </Typography>
                 </Box>
                 <Box width="90%" height="80px" sx={{display: 'flex', alignItems: 'center', paddingLeft: '15px', marginTop: '30px'}}>
                     <Button sx={{background: '#59d459', borderRadius: '5px', height: '40px', width: '30px', flexShrink: 0}} onClick={() => handleColChange(2)}></Button>
-                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px'}}> ENDING POINT </Typography>
+                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px', fontSize: '15px', whiteSpace: 'nowrap'}}> ENDING POINT </Typography>
                 </Box>
                 <Box width="90%" height="80px" sx={{display: 'flex', alignItems: 'center', paddingLeft: '15px', marginTop: '30px'}}>
                     <Button sx={{background: '#ffffff', borderRadius: '5px', height: '40px', width: '30px', flexShrink: 0}} onClick={() => handleColChange(0)}></Button>
-                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px'}}> ERASER </Typography>
+                    <Typography sx={{color: 'white', fontWeight: '600', paddingLeft: '15px', fontSize: '15px', whiteSpace: 'nowrap'}}> ERASER </Typography>
                 </Box>
                 <Box width="90%" height="80px" sx={{display: 'flex', alignItems: 'center', paddingLeft: '15px', paddingRight: '15px', marginTop: '30px', flexDirection: 'column'}}>
-                    <Button sx={{background: col, borderRadius: '5px', height: '20px', width: '100%', flexShrink: 0}}></Button>
-                    <Typography sx={{color: '#ffffff', fontWeight: '600', paddingLeft: '15px', paddingRight: '15px', width: '100%', textAlign: 'center'}}> CURRENT COLOR </Typography>
+                    <Box sx={{background: col, borderRadius: '5px', height: '20px', width: '100%', flexShrink: 0}}></Box>
+                    <Typography sx={{color: '#ffffff', fontWeight: '600', paddingLeft: '15px', paddingRight: '15px', width: '100%', textAlign: 'center', whiteSpace: 'nowrap'}}> CURRENT COLOR </Typography>
                 </Box>
             </Box>
             <Divider variant="middle" sx={{background: 'white', marginBottom: '30px'}}/>
             <Box width="100%" height="300px" sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-                <Typography sx={{color: 'white', fontWeight: '600'}}>
+                <Typography sx={{color: 'white', fontWeight: '600', whiteSpace: 'nowrap'}}>
                     Choose your pathfinding algorithm:
                 </Typography>
             </Box>
-        </>
+        </div>
     )
 }
 

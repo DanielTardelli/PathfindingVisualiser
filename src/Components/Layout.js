@@ -47,7 +47,7 @@ const Layout = (props) => {
     const handleMenuOpenClose = () => {
         if (ref2.current) {
             if (menuOpen == false) {
-                ref2.current.style.width = '15vw';
+                ref2.current.style.width = '300px';
                 setMenuOpen(true)
             }
             else {
@@ -60,6 +60,7 @@ const Layout = (props) => {
     return (
         <div style={{height: '100vh', width: '100%', display: 'flex'}}>
             <Box ref={ref2} sx={{
+            zIndex: 1,
             position: 'fixed',
             background: '#333333', 
             width:'5vw', 

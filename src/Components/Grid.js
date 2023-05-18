@@ -184,7 +184,7 @@ const Grid = (props) => {
                         )
                     })}
                 </Box>
-                <Button sx={{position: 'fixed', bottom: '20px', right: '20px', height: '100px', width: '200px', background: '#adadad'}}  onClick={djkstraBFS}>
+                <Button sx={{position: 'fixed', bottom: '20px', right: '20px', height: '100px', width: '200px', background: '#adadad', zIndex: 0}}  onClick={djkstraBFS}>
                     <Typography sx={{color: 'white', fontWeight: 700}}>
                         Run animation
                     </Typography>
