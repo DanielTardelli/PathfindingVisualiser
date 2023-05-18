@@ -9,6 +9,7 @@ const Layout = (props) => {
     const ref2 = useRef(null);
 
     const [menuOpen, setMenuOpen] = React.useState(false);
+    const [prevWidth, setPrevWidth] = React.useState(null);
 
     let mouseDown = false;
     let mousePos = [null, null];
@@ -47,12 +48,14 @@ const Layout = (props) => {
     const handleMenuOpenClose = () => {
         if (ref2.current) {
             if (menuOpen == false) {
+                setPrevWidth(ref2.current.style.width)
                 ref2.current.style.width = '300px';
                 setMenuOpen(true)
             }
             else {
-                ref2.current.style.width = '5vw';
+                ref2.current.style.width = prevWidth;
                 setMenuOpen(false);
+                setPrevWidth(null);
             }
         }
     }
@@ -61,10 +64,12 @@ const Layout = (props) => {
         <div style={{height: '100vh', width: '100%', display: 'flex'}}>
             <Box ref={ref2} sx={{
             zIndex: 1,
-            position: 'fixed',
+            position: 'absolute',
+            left: 0,
+            top: 0,
             background: '#333333', 
-            width:'5vw', 
-            minWidth: '80px',
+            width:{xs: '60px', sm: '60px', md: '100px'}, 
+            minWidth: '60px',
             height: '100%', 
             transition: 'width 200ms ease-in-out, background 500ms'}}>
                 <IconButton onClick={handleMenuOpenClose} sx={{position: 'relative', top: '0', right: '0', width: '100%'}}>
@@ -78,6 +83,7 @@ const Layout = (props) => {
                     <MiniMenu/>
                 </>
                 }
+                
             </Box>
             <Box ref={ref} sx={{width: '100%', height: '100%', overflow: 'auto'}}>
                     {React.cloneElement(props.children)}
