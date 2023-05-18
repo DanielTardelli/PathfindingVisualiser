@@ -22,7 +22,7 @@ const FullMenu = (props) => {
     
 
     return (
-        <div style={{overflowY: 'auto', height: '80%', width: '100%'}}>
+        <div style={{overflowY: 'auto', overflowX: 'hidden', height: '80%', width: '100%'}}>
             <Box width="100%" height='380px' sx={{display: 'flex', alignItems: 'center', flexDirection: 'column', marginBottom: '30px'}}>
                 <Typography sx={{color: 'white', fontWeight: '600', whiteSpace: 'nowrap'}}>
                     Choose your pen:
