@@ -1,24 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import Layout from './Components/Layout';
+import Grid from './Components/Grid';
+import React, { useRef } from 'react';
+
+// app notes
+// -1 = wall aka cant go there
+// 0 = neutral
+// 1 = starting point
+// 2 = ending  point
 
 function App() {
+  const [penType, setPenType] = React.useState(0)
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout pt={penType} setPT={setPenType}>
+      <Grid pt={penType} size={50}/>
+    </Layout>
   );
 }
 
