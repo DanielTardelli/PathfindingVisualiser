@@ -7,6 +7,8 @@ const Grid = (props) => {
     const [grid, setGrid] = React.useState(null)
     const [loading, setLoading] = React.useState(true);
     const [start, setStart] = React.useState([null, null]);
+    const [gridWidth, setGridWidth] = React.useState(null);
+    const [gridHeight, setGridHeight] = React.useState(null);
 
     let col = "#ffffff"
     if (props.pt == 1) {
@@ -25,14 +27,16 @@ const Grid = (props) => {
 
     useEffect(() => {
         let cGrid = [];
-        for (let i = 0; i < props.size; i++) {
+        for (let i = 0; i < props.reff.current.clientHeight / 23; i++) {
             cGrid.push([]);
-            for (let j = 0; j < props.size; j++) {
+            for (let j = 0; j < props.reff.current.clientWidth / 23; j++) {
                 cGrid[i].push(0);
             };
-        } 
+        }
         setGrid(cGrid);
         setLoading(false); 
+        setGridHeight(props.reff.current.clientHeight / 23);
+        setGridWidth(props.reff.current.clientWidth / 23);
         console.log('finished')  
     }, [])
 
@@ -77,29 +81,72 @@ const Grid = (props) => {
             }
             mouseDown = true;
             //e.target.style.background = col
-            clbckToEditGrid(e.target.dataset.i, e.target.dataset.j, props.pt)
+            clbckToEditGrid(Number(e.target.dataset.i), Number(e.target.dataset.j), props.pt)
         }
     }
 
-    const backtrack = (visited, i, j) => {
+    const backtrack = (visited, i, j, visitedArr) => {
         if (visited[i][j] != -1) {
-            let cGrid = [...grid]
-            cGrid[i][j] = 4;
-            setGrid(cGrid);
-            backtrack(visited, visited[i][j][0], visited[i][j][1]);
+            visitedArr.push([1, i, j])
+            backtrack(visited, visited[i][j][0], visited[i][j][1], visitedArr);
+        } else {
+            animate(visitedArr)
         }
+    }
+
+    const animate = async (arr) => {
+        let nIntV;
+        // let promise = new Promise((res, rej) => {
+        //     if (!nIntV) {
+        //         nIntV = setInterval(() => {
+        //             let x = arr.shift();
+        //             if (x[0] == 0) {
+        //                 let cGrid = [...grid];
+        //                 cGrid[x[1]][x[2]] = 3
+        //                 setGrid(cGrid);
+        //             } else {
+        //                 let cGrid = [...grid];
+        //                 cGrid[x[1]][x[2]] = 4
+        //                 setGrid(cGrid);
+        //             }
+        //             if (arr.length == 0) {
+        //                 clearInterval(nIntV)
+        //                 res(null)
+        //             }
+        //     }, 0.1)
+        //     }
+        // })
+        // return promise;
+        const animationStep = () => {
+            let x = arr.shift();
+            if (x[0] == 0) {
+                let cGrid = [...grid];
+                cGrid[x[1]][x[2]] = 3
+                setGrid(cGrid);
+            } else {
+                let cGrid = [...grid];
+                cGrid[x[1]][x[2]] = 4
+                setGrid(cGrid);
+            }
+            if (arr.length == 0) {
+                return;
+            }
+            requestAnimationFrame(animationStep);
+        }
+        requestAnimationFrame(animationStep);
     }
 
     const djkstraBFS = () => {
         // IMPLEMENT
         // creation of the visited array
         let visited = []
-        for (let i = 0; i < props.size; i++) {
+        for (let i = 0; i < gridHeight; i++) {
             visited.push([]);
-            for (let j = 0; j < props.size; j++) {
+            for (let j = 0; j < gridWidth; j++) {
                 visited[i].push(0);
             };
         } 
+        let visitedArr = [];
 
         let queue = [start];
         visited[start[0]][start[1]] = -1;
@@ -110,54 +157,62 @@ const Grid = (props) => {
            let val = queue.shift();
            if (val[0] < grid.length - 1 && visited[val[0]+1][val[1]] == 0 && grid[val[0]+1][val[1]] != -1) {
                 queue.push([val[0]+1, val[1]])
+                visitedArr.push([0, val[0]+1, val[1]])
                 visited[val[0]+1][val[1]] = val
                 if (grid[val[0]+1][val[1]] == 2) {
-                    backtrack(visited, val[0]+1, val[1]);
+                    backtrack(visited, val[0]+1, val[1], visitedArr);
                     break;
-                } else {
-                    let cGrid = [...grid];
-                    cGrid[val[0]+1][val[1]] = 3;
-                    setGrid(cGrid);
                 }
+                // else {
+                //     let cGrid = [...grid];
+                //     cGrid[val[0]+1][val[1]] = 3;
+                //     setGrid(cGrid);
+                // }
            }
 
            if (val[0] > 0 && visited[val[0]-1][val[1]] == 0 && grid[val[0]-1][val[1]] != -1) {
                 queue.push([val[0]-1, val[1]])
+                visitedArr.push([0, val[0]-1, val[1]])
                 visited[val[0]-1][val[1]] = val
                 if (grid[val[0]-1][val[1]] == 2) {
-                    backtrack(visited, val[0]-1, val[1]);
+                    backtrack(visited, val[0]-1, val[1], visitedArr);
                     break;
-                } else {
-                    let cGrid = [...grid];
-                    cGrid[val[0]-1][val[1]] = 3;
-                    setGrid(cGrid);
-                }
+                } 
+                // else {
+                //     let cGrid = [...grid];
+                //     cGrid[val[0]-1][val[1]] = 3;
+                //     setGrid(cGrid);
+                // }
            }
 
-           if (val[1] < grid.length - 1 && visited[val[0]][val[1]+1] == 0 && grid[val[0]][val[1]+1] != -1) {
+           if (val[1] < grid[0].length - 1 && visited[val[0]][val[1]+1] == 0 && grid[val[0]][val[1]+1] != -1) {
                 queue.push([val[0], val[1]+1])
+                visitedArr.push([0, val[0], val[1]+1])
                 visited[val[0]][val[1]+1] = val
                 if (grid[val[0]][val[1]+1] == 2) {
-                    backtrack(visited, val[0], val[1]+1);
+                    backtrack(visited, val[0], val[1]+1, visitedArr);
                     break;
-                } else {
-                    let cGrid = [...grid];
-                    cGrid[val[0]][val[1]+1] = 3;
-                    setGrid(cGrid);
-                }
+                } 
+                // else {
+                //     let cGrid = [...grid];
+                //     cGrid[val[0]][val[1]+1] = 3;
+                //     setGrid(cGrid);
+                // }
             }
 
             if (val[1] > 0 && visited[val[0]][val[1]-1] == 0 && grid[val[0]][val[1]-1] != -1) {
                 queue.push([val[0], val[1]-1])
+                visitedArr.push([0, val[0], val[1]-1])
                 visited[val[0]][val[1]-1] = val
                 if (grid[val[0]][val[1]-1] == 2) {
-                    backtrack(visited, val[0], val[1]-1);
+                    backtrack(visited, val[0], val[1]-1, visitedArr);
                     break;
-                } else {
-                    let cGrid = [...grid];
-                    cGrid[val[0]][val[1]-1] = 3;
-                    setGrid(cGrid);
-                }
+                } 
+                // else {
+                //     let cGrid = [...grid];
+                //     cGrid[val[0]][val[1]-1] = 3;
+                //     setGrid(cGrid);
+                // }
             }
         }
     }
@@ -173,25 +228,23 @@ const Grid = (props) => {
         )
     } else {
         return (
-            <>
-                <Box ref={ref} sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%', flexDirection: 'column'}}>
+            <Box ref={ref} sx={{position: 'relative', top:{xs: 5, sm: 7, md: 15} , left: {xs: 5, sm: 10, md: 15}, height: '100%', width: '100%'}}>
                     {grid.map((e, i, arr) => {
                         return(
-                            <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+                            <Box sx={{display: 'flex', flexDirection: 'row'}}>
                                 {e.map((_e, j, _arr) => {
                                     return <Square i={i} j={j} val={_e}/>
                                 })}
                             </Box>
                         )
                     })}
-                </Box>
-                <Fab variant="extended" sx={{position: 'fixed', bottom: '20px', right: '20px', width: {xs: '20px', sm: '20px', md: '100px'} ,background: '#adadad', zIndex: 0, display: 'flex', justifyContent: 'center', alignItems: 'center'}}  onClick={djkstraBFS}>
-                    <PlayArrowIcon sx={{color: 'white'}}></PlayArrowIcon>
-                    <Typography sx={{color: 'white', fontWeight: 600, display: {xs: 'none', sm: 'none', md: 'flex'}}}>
-                        Play
-                    </Typography> 
-                </Fab>
-            </>
+                    <Fab variant="extended" sx={{position: 'fixed', bottom: '20px', right: '20px', width: {xs: '20px', sm: '20px', md: '100px'} ,background: '#adadad', zIndex: 0, display: 'flex', justifyContent: 'center', alignItems: 'center'}}  onClick={djkstraBFS}>
+                        <PlayArrowIcon sx={{color: 'white'}}></PlayArrowIcon>
+                        <Typography sx={{color: 'white', fontWeight: 600, display: {xs: 'none', sm: 'none', md: 'flex'}}}>
+                            Play
+                        </Typography> 
+                    </Fab>
+            </Box>
         )
     }
 }

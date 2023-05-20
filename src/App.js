@@ -3,6 +3,7 @@ import './App.css';
 import Layout from './Components/Layout';
 import Grid from './Components/Grid';
 import React, { useRef } from 'react';
+import { Box } from '@mui/material'
 
 // app notes
 // -1 = wall aka cant go there
@@ -14,9 +15,11 @@ function App() {
   const [penType, setPenType] = React.useState(0)
   
   return (
-    <Layout pt={penType} setPT={setPenType}>
-      <Grid pt={penType} size={50}/>
-    </Layout>
+    <>
+      <Layout pt={penType} setPT={setPenType}>
+        <Grid pt={penType} size={50}/>
+      </Layout>
+    </>
   );
 }
 
