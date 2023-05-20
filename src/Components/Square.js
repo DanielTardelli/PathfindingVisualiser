@@ -49,7 +49,7 @@ const Square = (props) => {
     
     return (
         <>
-            <div data-i={props.i} data-j={props.j} ref={ref} style={{border: '0.5px solid black', height: '20px', width: '20px'}}></div>
+            <div class={`${props.i}-${props.j}`} data-i={props.i} data-j={props.j} ref={ref} style={{border: '0.5px solid black', height: '20px', width: '20px'}}></div>
         </>
     )
 }

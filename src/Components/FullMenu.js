@@ -1,11 +1,17 @@
 import { Container, Typography, Box, Button, Divider } from '@mui/material';
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 const FullMenu = (props) => {
 
     const [col, setCol] = React.useState('#ffffff')
     const handleColChange = (val) => {
         props.setPT(val);
+    }
+    
+    const handleGridClear = () => {
+        if (props.clearRef.current) {
+            props.clearRef.current();
+        }
     }
 
     useEffect(() => {
@@ -53,6 +59,11 @@ const FullMenu = (props) => {
                 <Typography sx={{color: 'white', fontWeight: '600', whiteSpace: 'nowrap'}}>
                     Choose your pathfinding algorithm:
                 </Typography>
+            </Box>
+            <Box width="100%" height="100px" sx={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+                <Button sx={{background: 'grey', borderRadius: '5px', height: '40px', width: '80%', flexShrink: 0}} onClick={() => handleGridClear()}>
+                    <Typography sx={{fontWeight: 600, color: 'white'}}>CLEAR</Typography>
+                </Button>
             </Box>
         </div>
     )

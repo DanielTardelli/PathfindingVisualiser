@@ -7,6 +7,7 @@ import MiniMenu from './MiniMenu';
 const Layout = (props) => {
     const ref = useRef(null);
     const ref2 = useRef(null);
+    const clearGridRef = useRef(null)
 
     const [menuOpen, setMenuOpen] = React.useState(false);
     const [prevWidth, setPrevWidth] = React.useState(null);
@@ -78,7 +79,7 @@ const Layout = (props) => {
                 </IconButton>
                 {menuOpen == true 
                 ? <>
-                    <FullMenu pt={props.pt} setPT={props.setPT}/>
+                    <FullMenu pt={props.pt} setPT={props.setPT} clearRef={clearGridRef}/>
                 </> 
                 : <>
                     <MiniMenu/>
@@ -86,8 +87,8 @@ const Layout = (props) => {
                 }
                 
             </Box>
-            <Box ref={ref} sx={{height: '100%', width: '100%', overflow: 'hidden', display: 'flex', marginLeft: {xs: '60px', sm: '60px', md: '100px'}}}>
-                {React.cloneElement(props.children, {reff: ref})}
+            <Box ref={ref} sx={{height: '100vh', width: '100%', overflow: 'hidden', display: 'flex', marginLeft: {xs: '60px', sm: '60px', md: '100px'}}}>
+                {React.cloneElement(props.children, {reff: ref, clearGridRef: clearGridRef })}
             </Box>
         </div>
     )

@@ -59,6 +59,17 @@ const Grid = (props) => {
             })
         } : () => {};
     }, [loading, props.pt])
+    
+    props.clearGridRef.current = () => {
+        let cGrid = [];
+        for (let i = 0; i < gridHeight; i++) {
+            cGrid.push([]);
+            for (let j = 0; j < gridWidth; j++) {
+                cGrid[i].push(0);
+            };
+        }
+        setGrid(cGrid);
+    }
 
     const clbckToEditGrid = (i, j, val) => {
         let cGrid = [...grid];
@@ -95,40 +106,26 @@ const Grid = (props) => {
     }
 
     const animate = async (arr) => {
-        let nIntV;
-        // let promise = new Promise((res, rej) => {
-        //     if (!nIntV) {
-        //         nIntV = setInterval(() => {
-        //             let x = arr.shift();
-        //             if (x[0] == 0) {
-        //                 let cGrid = [...grid];
-        //                 cGrid[x[1]][x[2]] = 3
-        //                 setGrid(cGrid);
-        //             } else {
-        //                 let cGrid = [...grid];
-        //                 cGrid[x[1]][x[2]] = 4
-        //                 setGrid(cGrid);
-        //             }
-        //             if (arr.length == 0) {
-        //                 clearInterval(nIntV)
-        //                 res(null)
-        //             }
-        //     }, 0.1)
-        //     }
-        // })
-        // return promise;
+        let arrC = [...arr]
         const animationStep = () => {
             let x = arr.shift();
+            let elem = document.getElementsByClassName(`${x[1]}-${x[2]}`)
             if (x[0] == 0) {
-                let cGrid = [...grid];
-                cGrid[x[1]][x[2]] = 3
-                setGrid(cGrid);
+                elem[0].style.background = "#92cad1"
             } else {
-                let cGrid = [...grid];
-                cGrid[x[1]][x[2]] = 4
-                setGrid(cGrid);
+                elem[0].style.background = "#00850d"
             }
             if (arr.length == 0) {
+                let cGrid = [...grid];
+                arrC.map((elem) => {
+                    if (elem[0] == 0 ) {
+                        cGrid[elem[1]][elem[2]] = 3;
+                    } else {
+                        cGrid[elem[1]][elem[2]] = 4;
+                    }
+                })
+                console.log(cGrid)
+                setGrid(cGrid);
                 return;
             }
             requestAnimationFrame(animationStep);
@@ -150,8 +147,6 @@ const Grid = (props) => {
 
         let queue = [start];
         visited[start[0]][start[1]] = -1;
-
-        console.log(queue[0], visited)
         // order for adjacent will be left up right down
         while (queue.length > 0) {
            let val = queue.shift();
@@ -163,11 +158,6 @@ const Grid = (props) => {
                     backtrack(visited, val[0]+1, val[1], visitedArr);
                     break;
                 }
-                // else {
-                //     let cGrid = [...grid];
-                //     cGrid[val[0]+1][val[1]] = 3;
-                //     setGrid(cGrid);
-                // }
            }
 
            if (val[0] > 0 && visited[val[0]-1][val[1]] == 0 && grid[val[0]-1][val[1]] != -1) {
@@ -178,11 +168,6 @@ const Grid = (props) => {
                     backtrack(visited, val[0]-1, val[1], visitedArr);
                     break;
                 } 
-                // else {
-                //     let cGrid = [...grid];
-                //     cGrid[val[0]-1][val[1]] = 3;
-                //     setGrid(cGrid);
-                // }
            }
 
            if (val[1] < grid[0].length - 1 && visited[val[0]][val[1]+1] == 0 && grid[val[0]][val[1]+1] != -1) {
@@ -193,11 +178,6 @@ const Grid = (props) => {
                     backtrack(visited, val[0], val[1]+1, visitedArr);
                     break;
                 } 
-                // else {
-                //     let cGrid = [...grid];
-                //     cGrid[val[0]][val[1]+1] = 3;
-                //     setGrid(cGrid);
-                // }
             }
 
             if (val[1] > 0 && visited[val[0]][val[1]-1] == 0 && grid[val[0]][val[1]-1] != -1) {
@@ -208,11 +188,6 @@ const Grid = (props) => {
                     backtrack(visited, val[0], val[1]-1, visitedArr);
                     break;
                 } 
-                // else {
-                //     let cGrid = [...grid];
-                //     cGrid[val[0]][val[1]-1] = 3;
-                //     setGrid(cGrid);
-                // }
             }
         }
     }
