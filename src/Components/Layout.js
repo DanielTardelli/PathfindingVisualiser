@@ -86,7 +86,7 @@ const Layout = (props) => {
                 }
                 
             </Box>
-            <Box ref={ref} sx={{maxHeight: '100%', height: '100vh', width: '100%', overflow: 'hidden', marginLeft: {xs: '60px', sm: '60px', md: '100px'}}}>
+            <Box ref={ref} sx={{maxHeight: window.innerHeight, height: '100vh', width: '100%', overflow: 'hidden', marginLeft: {xs: '60px', sm: '60px', md: '100px'}}}>
                 {React.cloneElement(props.children, {reff: ref, clearGridRef: clearGridRef })}
             </Box>
         </div>
