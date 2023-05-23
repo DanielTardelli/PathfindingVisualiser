@@ -203,26 +203,24 @@ const Grid = (props) => {
         )
     } else {
         return (
-            <div style={{height: '100vh', width: '100%', background: '#b3b3b3', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-            <Box ref={ref} sx={{height: '100%', width: '100%'}}>
-                    <Box sx={{height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                    {grid.map((e, i, arr) => {
-                        return(
-                            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                                {e.map((_e, j, _arr) => {
-                                    return <Square i={i} j={j} val={_e} gridh={grid.length} gridw={grid[0].length}/>
-                                })}
-                            </Box>
-                        )
-                    })}
-                    </Box>
-                    <Fab variant="extended" sx={{position: 'fixed', bottom: '20px', right: '20px', width: {xs: '20px', sm: '20px', md: '100px'} ,background: 'black', zIndex: 0, display: 'flex', justifyContent: 'center', alignItems: 'center'}}  onClick={djkstraBFS}>
-                        <PlayArrowIcon sx={{color: 'white'}}></PlayArrowIcon>
-                        <Typography sx={{color: 'white', fontWeight: 600, display: {xs: 'none', sm: 'none', md: 'flex'}}}>
-                            Play
-                        </Typography> 
-                    </Fab>
-            </Box>
+            <div ref={ref} style={{height: '100vh', width: '100%', background: '#b3b3b3', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+                <Box sx={{height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                {grid.map((e, i, arr) => {
+                    return(
+                        <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                            {e.map((_e, j, _arr) => {
+                                return <Square i={i} j={j} val={_e} gridh={grid.length} gridw={grid[0].length}/>
+                            })}
+                        </Box>
+                    )
+                })}
+                </Box>
+                <Fab variant="extended" sx={{position: 'fixed', bottom: '20px', right: '20px', width: {xs: '20px', sm: '20px', md: '100px'} ,background: 'black', zIndex: 0, display: 'flex', justifyContent: 'center', alignItems: 'center'}}  onClick={djkstraBFS}>
+                    <PlayArrowIcon sx={{color: 'white'}}></PlayArrowIcon>
+                    <Typography sx={{color: 'white', fontWeight: 600, display: {xs: 'none', sm: 'none', md: 'flex'}}}>
+                        Play
+                    </Typography> 
+                </Fab>
             </div>
         )
     }
