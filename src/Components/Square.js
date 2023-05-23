@@ -33,17 +33,17 @@ const Square = (props) => {
     useEffect(() => {
         if (ref.current) {
             if (props.val == 1) {
-                ref.current.style.background = '#cd7dff'
+                ref.current.style.background = 'linear-gradient(145deg, #eaaae8, #c58fc3)'
             } else if (props.val == -1) {
-                ref.current.style.background = '#ff5454'
+                ref.current.style.background = 'linear-gradient(145deg, #ef6f8e, #c95e78)'
             } else if (props.val == 2) {
-                ref.current.style.background = '#59d459'
+                ref.current.style.background = 'linear-gradient(145deg, #83d09c, #6eaf83)'
             } else if (props.val == 3) {
-                ref.current.style.background = '#92cad1'
+                ref.current.style.background = 'linear-gradient(145deg, #9de7f1, #84c2cb)'
             } else if (props.val == 4) {
-                ref.current.style.background = '#00850d'
+                ref.current.style.background = 'linear-gradient(145deg, #b6b2f3, #9995cc)'
             } else {
-                ref.current.style.background = '#727273'
+                ref.current.style.background = 'linear-gradient(145deg, #f0f0f0, #cacaca)'
             }
         }
     }, [props.val])

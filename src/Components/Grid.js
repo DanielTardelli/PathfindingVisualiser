@@ -111,9 +111,9 @@ const Grid = (props) => {
             let x = arr.shift();
             let elem = document.getElementsByClassName(`${x[1]}-${x[2]}`)
             if (x[0] == 0) {
-                elem[0].style.background = "#92cad1"
+                elem[0].style.background = "linear-gradient(145deg, #9de7f1, #84c2cb)"
             } else {
-                elem[0].style.background = "#00850d"
+                elem[0].style.background = "linear-gradient(145deg, #b6b2f3, #9995cc)"
             }
             if (arr.length == 0) {
                 let cGrid = [...grid];
