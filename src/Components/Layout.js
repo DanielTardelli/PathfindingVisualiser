@@ -62,7 +62,7 @@ const Layout = (props) => {
     }
 
     return (
-        <div style={{height: '100dvh', height: '100vh', width: '100%', display: 'flex'}}>
+        <div style={{maxHeight: '100%', height: '100vh', width: '100%', display: 'flex'}}>
             <Box ref={ref2} sx={{
             zIndex: 3,
             position: 'absolute',
@@ -71,7 +71,7 @@ const Layout = (props) => {
             background: '#333333', 
             width:{xs: '60px', sm: '60px', md: '100px'}, 
             minWidth: '60px',
-            height: '100dvh', height: '100vh',
+            maxHeight: '100%', height: '100vh',
             transition: 'width 200ms ease-in-out, background 500ms'}}>
                 <IconButton onClick={handleMenuOpenClose} sx={{position: 'relative', top: '0', right: '0', width: '100%'}}>
                     <MenuIcon sx={{fontSize: '31px', color: "white"}}/>
@@ -86,7 +86,7 @@ const Layout = (props) => {
                 }
                 
             </Box>
-            <Box ref={ref} sx={{height: '100dvh', height: '100vh', width: '100%', overflow: 'hidden', display: 'flex', marginLeft: {xs: '60px', sm: '60px', md: '100px'}}}>
+            <Box ref={ref} sx={{maxHeight: '100%', height: '100vh', width: '100%', overflow: 'hidden', display: 'flex', marginLeft: {xs: '60px', sm: '60px', md: '100px'}}}>
                 {React.cloneElement(props.children, {reff: ref, clearGridRef: clearGridRef })}
             </Box>
         </div>

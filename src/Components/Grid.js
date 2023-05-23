@@ -203,7 +203,7 @@ const Grid = (props) => {
         )
     } else {
         return (
-            <div ref={ref} style={{height: '100dvh', height: '100vh', width: '100%', background: '#b3b3b3', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+            <div ref={ref} style={{maxHeight: '100%', height: '100vh', width: '100%', background: '#b3b3b3', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
                 <Box sx={{height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                 {grid.map((e, i, arr) => {
                     return(
