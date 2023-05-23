@@ -62,7 +62,7 @@ const Layout = (props) => {
     }
 
     return (
-        <div style={{maxHeight: '100%', height: '100vh', width: '100%', display: 'flex'}}>
+        <div style={{maxHeight: window.innerHeight, width: '100%', display: 'flex'}}>
             <Box ref={ref2} sx={{
             zIndex: 3,
             position: 'absolute',
