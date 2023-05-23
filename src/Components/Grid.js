@@ -27,7 +27,7 @@ const Grid = (props) => {
 
     useEffect(() => {
         let cGrid = [];
-        for (let i = 0; i < window.innerHeight / 25; i++) {
+        for (let i = 0; i < props.reff.current.clientHeight / 25; i++) {
             cGrid.push([]);
             for (let j = 0; j < props.reff.current.clientWidth / 25; j++) {
                 cGrid[i].push(0);
